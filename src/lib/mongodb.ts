@@ -1,8 +1,8 @@
 
 import mongoose from "mongoose";
 
-
-const M_URL = "mongodb://127.0.0.1:27017/notes-app"
+console.log(process.env.MONGODB_URL)
+const M_URL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/notes-app"
 console.log(M_URL)
 
 if(!M_URL) {
