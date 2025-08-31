@@ -8,10 +8,11 @@ export const sessionOptions:SessionOptions={
   cookieOptions:{
     secure:process.env.NODE_ENV === "production"
   },
-  ttl:5*60
+  ttl:2*24*60*60
 }
 
-export async  function getSession(): Promise<IronSession<{ email?: string; otp?: string }>>{
+export async  function getSession(): Promise<IronSession<{ email?: string; otp?: string 
+}>>{
   const cookieStore = await cookies()
   // console.log(cookieStore)
   return await getIronSession(cookieStore,sessionOptions)

@@ -3,6 +3,8 @@ export interface Iuser extends Document{
     email:string,
     password?:string,
     googleId?:string
+    username:string,
+    dob:Date
 }
 
 const UserSchema = new Schema<Iuser>(
@@ -14,8 +16,10 @@ const UserSchema = new Schema<Iuser>(
         },
         password: { type: String },
         googleId: { type: String },
+        username:{type:String},
+        dob:{type:Date}
     }
     ,
     {timestamps:true}
 )
-export default models.Note || mongoose.model<Iuser>("User",UserSchema)
+export default models.User || mongoose.model<Iuser>("User",UserSchema)

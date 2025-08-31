@@ -24,8 +24,11 @@ export default function SignInPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      const data = res.json()
+      const data =await res.json()
       console.log(data)
+      if(!data.userexist){
+        router.push('/signup')
+      }
       setOtpSent(true); // mark OTP as sent
     } catch (err) {
       setError("Failed to send OTP");
@@ -51,6 +54,9 @@ export default function SignInPage() {
         body: formdata,
       });
       const data = await res.json()
+      if(!data.userexist){
+        router.push("/signup")
+      }
       alert("Signed in successfully!"); 
       if(data.success){
         router.push("/")

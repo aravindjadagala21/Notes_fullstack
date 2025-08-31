@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from 'nodemailer'
 import { getSession } from "@/lib/createsession";
 
+
 function generateOtp(length = 6) {
   return Math.floor(100000 + Math.random() * 900000).toString().slice(0, length);
 }
@@ -10,15 +11,23 @@ export  async function POST(req:NextRequest){
     try{
         const {email} = await req.json()
         const session = await getSession()
+        
         console.log(email)
+
+        
+
         if(!email){
             return NextResponse.json({
             success:false,
             message:"Email is required"
             })
         }
+
+
+        
         const otp = generateOtp(6)
         console.log(otp)
+        console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS)
         const transporter = nodemailer.createTransport({
             service : "gmail",
             auth:{
