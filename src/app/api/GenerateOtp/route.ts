@@ -54,7 +54,7 @@ export  async function POST(req:NextRequest){
         await session.save()
 
         return NextResponse.json({ success: true, msg: "OTP sent successfully" });
-        } catch (error: any) {
-        return NextResponse.json({ success: false, msg: "Failed to send OTP" }, { status: 500 });
+        } catch (error: unknown) {
+        return NextResponse.json({ success: false, msg: "Failed to send OTP" ,error}, { status: 500 });
     }
 }

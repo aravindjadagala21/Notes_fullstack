@@ -4,6 +4,17 @@ import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
 import jwt from "jsonwebtoken";
 
+interface CookieOptions {
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: true | false | "lax" | "strict" | "none";
+  path?: string;
+  maxAge?: number;
+  domain?: string;
+  expires?: Date;
+  priority?: "low" | "medium" | "high";
+}
+
 export async function POST(req: NextRequest) {
   const formdata = await req.formData();
   const email = formdata.get("email") as string;
@@ -38,8 +49,8 @@ export async function POST(req: NextRequest) {
     console.log("inside signin.....");
     session.destroy();
 
-    // ✅ Set token expiry correctly
-    const token = jwt.sign(
+   
+    const token:string = jwt.sign(
       { id: userexist._id.toString(), email: userexist.email },
       process.env.JWT_SECRET as string,
       { expiresIn: keeplogged ? "7d" : "1h" } // not "0"
@@ -52,20 +63,19 @@ export async function POST(req: NextRequest) {
       token,
     });
 
-    // ✅ Cookie options
-    const options: any = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-    };
+    
+const options: CookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  path: "/",
+};
 
-    if (keeplogged) {
-      options.maxAge = 60 * 60 * 24 * 7; // 7 days
-    }
-    // else: session cookie (no maxAge set)
+if (keeplogged) {
+  options.maxAge = 60 * 60 * 24 * 7; // 7 days
+}
 
-    response.cookies.set("token", token, options);
+response.cookies.set("token", token, options);
 
     return response;
   }

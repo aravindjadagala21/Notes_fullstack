@@ -1,4 +1,4 @@
-import mongoose,{models,Document,Schema, Mongoose} from "mongoose";
+import mongoose,{models,Document,Schema} from "mongoose";
 
 export interface Inote extends Document{
     user:mongoose.Types.ObjectId,

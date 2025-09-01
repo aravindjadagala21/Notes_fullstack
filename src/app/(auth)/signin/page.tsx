@@ -33,8 +33,8 @@ export default function SignInPage() {
       if (data?.msg) {
         alert(data.msg);
       }
-    } catch (err) {
-      setError("Failed to send OTP");
+    } catch (err:unknown) {
+      setError(`Failed to send OTP : ${err}`);
     } finally {
       setLoading(false);
     }
@@ -63,8 +63,8 @@ export default function SignInPage() {
       } else {
         throw new Error("Invalid error");
       }
-    } catch (err) {
-      setError("Invalid OTP");
+    } catch (err:unknown) {
+      setError(`Invalid OTP: ${err}`);
     } finally {
       setLoading(false);
     }
@@ -74,7 +74,6 @@ export default function SignInPage() {
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-lg gap-5 p-5">
         <div className="w-[343px] h-[32px] flex justify-center gap-2">
-          {/* <img src="/top.png" alt="img" /> */}
           <Img/>
           <h1>HD</h1>
         </div>

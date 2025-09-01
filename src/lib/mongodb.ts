@@ -1,27 +1,37 @@
+import mongoose, { Mongoose } from "mongoose";
 
-import mongoose from "mongoose";
+const M_URL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/notes-app";
 
-console.log(process.env.MONGODB_URL)
-const M_URL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/notes-app"
-console.log(M_URL)
-
-if(!M_URL) {
-    throw new Error("please define mongodb url")
+if (!M_URL) {
+  throw new Error("Please define the MongoDB URL in MONGODB_URI");
 }
 
-let cached = (global as any).mongoose
-
-if(!cached){
-    cached = (global as any).mongoose = {conn:null,promise:null}
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+  } | undefined;
 }
 
-async function connectDB() {
-    if(cached.conn) return cached.conn
-    if(!cached.promise){
-        cached.promise = mongoose.connect(M_URL).then( m => m) 
-    }
-    cached.conn = await cached.promise;
-    return cached.conn
-}
-export default connectDB
+let cached = global.mongoose;
 
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB(): Promise<Mongoose> {
+  if (cached!.conn) return cached!.conn;
+  if (!cached!.promise) {
+    cached!.promise = mongoose.connect(M_URL, { bufferCommands: false });
+  }
+  try {
+    cached!.conn = await cached!.promise;
+  } catch (err) {
+    cached!.promise = null;
+    throw err;
+  }
+  return cached!.conn!;
+}
+
+export default connectDB;

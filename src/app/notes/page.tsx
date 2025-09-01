@@ -2,15 +2,9 @@
 
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-type NoteData = { id: number; title: string; content: string };
 
 export default function NotePage() {
-  const params = useParams();
-  const id = params.id as string | undefined;
-
 
   const [content, setContent] = useState<string>("");
   const [title,setTitle] = useState<string>("")

@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 type NoteData = { id: string; title: string; content: string };
 
 export default function NotePage() {
   const params = useParams();
-  const router = useRouter();
   const id = params?.id; 
 
   const [note, setNote] = useState<NoteData | null>(null);

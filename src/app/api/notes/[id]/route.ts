@@ -7,8 +7,8 @@ import { getUserIdFromToken } from "@/actions/getidfromtoken";
 await connectDB();
 
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = await params; 
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await  context.params;; 
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");
@@ -25,8 +25,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
- const { id } = await params; 
+export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await  context.params;;  
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");
@@ -50,8 +50,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
- const { id } = await params; 
+export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await  context.params;; 
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");

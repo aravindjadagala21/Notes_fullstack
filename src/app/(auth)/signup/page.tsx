@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
 import signupUser from "@/actions/singupuser";
-
+import Image from "next/image";
 export default function SignupPage() {
   const [state, formAction] = useActionState(signupUser, {
     success: false,
@@ -69,7 +69,7 @@ export default function SignupPage() {
   <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-md gap-5 p-5">
     
     <div className="w-[343px] h-[32px] flex justify-center gap-2">
-      <img src="/top.png" alt="logo" />
+      <Image src="/top.png" alt="err" width={100} height={50} />
       <h1>HD</h1>
     </div>
 

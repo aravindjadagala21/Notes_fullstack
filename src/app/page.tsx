@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 type Note = { _id: string; title: string };
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
     username:"",
     email:""
   })
-const router  = useRouter()
   const fetchNotes = async () => {
     try {
       const res = await fetch("/api/notes");
