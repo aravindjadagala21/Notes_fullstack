@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+This project is a simple authentication system using Next.js (App Router) for both frontend and backend APIs, MongoDB with Mongoose for database, and JWT for authentication.
+
+Signup: Users register with email, username, and DOB.
+
+OTP Verification: OTP is sent to email using Nodemailer for secure login.
+
+Signin: Login with OTP, with an option to “keep me logged in” (7 days session) or expire on browser close.
+
+JWT & Cookies: Tokens are stored in secure cookies (httpOnly, SameSite, secure).
+
+User Details: User info can be fetched using the token.
+
+Signout: Clears token from cookies.
+
+Add .env.local file
+
+MONGODB_URI=your_mongodb_url
+JWT_SECRET=your_secret_key
+EMAIL_USER=your_gmail_address
+EMAIL_PASS=your_app_password
