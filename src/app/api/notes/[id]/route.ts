@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import Notes from "@/models/Notes";
 import { getUserIdFromToken } from "@/actions/getidfromtoken";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   await connectDB();
-  const { id } = params;
+  const { id } = await context.params; // ✅ await
 
   try {
     const token = req.cookies.get("token")?.value;
@@ -22,9 +22,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   await connectDB();
-  const { id } = params;
+  const { id } = await context.params; // ✅ await
 
   try {
     const token = req.cookies.get("token")?.value;
@@ -48,9 +48,9 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   await connectDB();
-  const { id } = params;
+  const { id } = await context.params; // ✅ await
 
   try {
     const token = req.cookies.get("token")?.value;
