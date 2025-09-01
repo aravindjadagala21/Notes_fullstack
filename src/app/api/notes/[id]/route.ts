@@ -3,12 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import Notes from "@/models/Notes";
 import { getUserIdFromToken } from "@/actions/getidfromtoken";
 
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  await connectDB();
+  const { id } = params;
 
-await connectDB();
-
-
-export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const { id } = await  context.params;; 
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");
@@ -20,13 +18,14 @@ export async function GET(req: NextRequest, context: { params: Promise<{ id: str
 
     return NextResponse.json({ success: true, data: note });
   } catch (err) {
-    return NextResponse.json({ success: false, msg: "Failed to fetch note", error: err });
+    return NextResponse.json({ success: false, msg: "Failed to fetch note", error: String(err) });
   }
 }
 
+export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  await connectDB();
+  const { id } = params;
 
-export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const { id } = await  context.params;;  
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");
@@ -45,13 +44,14 @@ export async function PUT(req: NextRequest, context: { params: Promise<{ id: str
 
     return NextResponse.json({ success: true, data: updatedNote });
   } catch (err) {
-    return NextResponse.json({ success: false, msg: "Failed to update note", error: err });
+    return NextResponse.json({ success: false, msg: "Failed to update note", error: String(err) });
   }
 }
 
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+  await connectDB();
+  const { id } = params;
 
-export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const { id } = await  context.params;; 
   try {
     const token = req.cookies.get("token")?.value;
     if (!token) throw new Error("Unauthorized");
@@ -64,6 +64,6 @@ export async function DELETE(req: NextRequest, context: { params: Promise<{ id: 
 
     return NextResponse.json({ success: true, msg: "Note deleted successfully" });
   } catch (err) {
-    return NextResponse.json({ success: false, msg: "Failed to delete note", error: err });
+    return NextResponse.json({ success: false, msg: "Failed to delete note", error: String(err) });
   }
 }
