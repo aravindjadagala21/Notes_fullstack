@@ -8,13 +8,14 @@ export async function POST(req: NextRequest) {
   const formdata = await req.formData();
   const email = formdata.get("email") as string;
   const otp = formdata.get("otp") as string;
+  const keepmeloggedin = formdata.get("keepmeloggedin") as string;
+  const keeplogged = keepmeloggedin === "true";
   const session = await getSession();
 
   if (!email) {
     return NextResponse.json({ success: false, msg: "Email is required" });
   }
 
-  
   await connectDB();
   const userexist = await Users.findOne({ email });
   if (!userexist) {
@@ -25,7 +26,6 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  
   if (!session.email || !session.otp) {
     return NextResponse.json({
       success: false,
@@ -38,29 +38,34 @@ export async function POST(req: NextRequest) {
     console.log("inside signin.....");
     session.destroy();
 
-
+    // ✅ Set token expiry correctly
     const token = jwt.sign(
-      { id: userexist._id, email: userexist.email }, 
-      process.env.JWT_SECRET as string,             
-      { expiresIn: "7d" }                          
+      { id: userexist._id.toString(), email: userexist.email },
+      process.env.JWT_SECRET as string,
+      { expiresIn: keeplogged ? "7d" : "1h" } // not "0"
     );
 
-   
     const response = NextResponse.json({
       success: true,
       msg: "Successfully logged in",
       userexist: true,
-      token, 
+      token,
     });
 
-  
-    response.cookies.set("token", token, {
+    // ✅ Cookie options
+    const options: any = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    };
+
+    if (keeplogged) {
+      options.maxAge = 60 * 60 * 24 * 7; // 7 days
+    }
+    // else: session cookie (no maxAge set)
+
+    response.cookies.set("token", token, options);
 
     return response;
   }

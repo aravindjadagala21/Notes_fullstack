@@ -1,0 +1,31 @@
+### Get all notes
+GET http://localhost:3000/api/notes
+Cookie: token=YOUR_JWT_TOKEN_HERE
+
+### Get single note
+GET http://localhost:3000/api/notes/68b4855c5abb164299646900
+Cookie: token=YOUR_JWT_TOKEN_HERE
+
+### Create a note
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+Cookie: token=YOUR_JWT_TOKEN_HERE
+
+{
+  "title": "My first note",
+  "content": "This is the content of my note"
+}
+
+### Update a note
+PUT http://localhost:3000/api/notes/68b4855c5abb164299646900
+Content-Type: application/json
+Cookie: token=YOUR_JWT_TOKEN_HERE
+
+{
+  "title": "Updated title",
+  "content": "Updated content"
+}
+
+### Delete a note
+DELETE http://localhost:3000/api/notes/68b4855c5abb164299646900
+Cookie: token=YOUR_JWT_TOKEN_HERE

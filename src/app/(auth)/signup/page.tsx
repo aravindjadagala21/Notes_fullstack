@@ -45,16 +45,15 @@ export default function SignupPage() {
       const res = await fetch("/api/GenerateOtp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email,signin:false }),
       });
       const result = await res.json();
 
-      if (result.userexist) {
-        router.push("/login");
-        return;
-      }
+     if(result.msg){
+       alert(result.msg)
+     }
 
-      setToggle(true);
+      setToggle(result.success);
       setErr({});
     } catch (error) {
       console.error("OTP generation failed:", error);
@@ -66,79 +65,141 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex flex-col items-center p-6">
-      <h1 className="text-2xl font-bold mb-4">Signup</h1>
-      <form action={formAction} className="flex flex-col gap-3 w-64">
-        {/* username */}
+<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
+  <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center gap-5 p-5">
+    {/* Logo */}
+    <div className="w-[343px] h-[32px] flex justify-center gap-2">
+      <img src="/top.png" alt="logo" />
+      <h1>HD</h1>
+    </div>
+
+    {/* Heading */}
+    <div className="flex flex-col justify-around items-center gap-3">
+      <h1 className="h-[35px] font-[700] text-[32px] text-[#232323]">Sign Up</h1>
+      <p className="text-ash">Signup to enjoy the features of HD</p>
+    </div>
+
+    {/* Form */}
+    <form action={formAction} className="w-[343px] flex flex-col gap-5">
+      {/* Username */}
+      <div className="relative">
+        <label
+          htmlFor="username"
+          className="absolute -top-2 left-3 bg-white px-1 text-xs font-medium text-blue"
+        >
+          Username
+        </label>
         <input
           type="text"
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           name="username"
-          placeholder="Username"
-          className="border p-2 rounded"
+          id="username"
+          placeholder="Your username"
+          className="w-full border-[1.5px] border-ash rounded-[10px] px-4 py-3 text-gray-800 focus:border-blue-500 outline-none"
         />
         {state.errors.username && <p className="text-sm text-red-500">{state.errors.username}</p>}
         {err.username && <p className="text-sm text-red-500">{err.username}</p>}
+      </div>
 
-        {/* dob */}
+      {/* DOB */}
+      <div className="relative">
+        <label
+          htmlFor="dob"
+          className="absolute -top-2 left-3 bg-white px-1 text-xs font-medium text-blue"
+        >
+          Date of Birth
+        </label>
         <input
           type="date"
           onChange={(e) => setDob(e.target.value)}
           value={dob}
           name="dob"
-          className="border p-2 rounded"
+          id="dob"
+          className="w-full border-[1.5px] border-ash rounded-[10px] px-4 py-3 text-gray-800 focus:border-blue-500 outline-none"
         />
         {state.errors.dob && <p className="text-sm text-red-500">{state.errors.dob}</p>}
         {err.dob && <p className="text-sm text-red-500">{err.dob}</p>}
+      </div>
 
-        {/* email */}
+      {/* Email */}
+      <div className="relative">
+        <label
+          htmlFor="email"
+          className="absolute -top-2 left-3 bg-white px-1 text-xs font-medium text-blue"
+        >
+          Email
+        </label>
         <input
           type="email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           name="email"
-          placeholder="Email"
-          className="border p-2 rounded"
+          id="email"
+          placeholder="you@example.com"
+          className="w-full border-[1.5px] border-ash rounded-[10px] px-4 py-3 text-gray-800 focus:border-blue-500 outline-none"
         />
         {state.errors.email && <p className="text-sm text-red-500">{state.errors.email}</p>}
         {err.email && <p className="text-sm text-red-500">{err.email}</p>}
+      </div>
 
-        {/* otp input */}
-        {toggle && (
-          <div>
-            <input type="text" name="otp" placeholder="OTP" className="border p-2 rounded w-full" />
-            {state.errors.otp && <p className="text-sm text-red-500">{state.errors.otp}</p>}
-          </div>
-        )}
+      {/* OTP */}
+      {toggle && (
+        <div className="relative">
+          <label
+            htmlFor="otp"
+            className="absolute -top-2 left-3 bg-white px-1 text-xs font-medium text-blue"
+          >
+            OTP
+          </label>
+          <input
+            type="text"
+            name="otp"
+            id="otp"
+            placeholder="Enter OTP"
+            className="w-full border-[1.5px] border-ash rounded-[10px] px-4 py-3 text-gray-800 focus:border-blue-500 outline-none"
+          />
+          {state.errors.otp && <p className="text-sm text-red-500">{state.errors.otp}</p>}
+        </div>
+      )}
 
-        {/* buttons */}
-        {!toggle ? (
+      {/* Buttons */}
+      {!toggle ? (
+        <button
+          type="button"
+          onClick={generateOtp}
+          className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white font-semibold shadow-md hover:bg-blue-700 transition disabled:opacity-70"
+        >
+          Get OTP
+        </button>
+      ) : (
+        <>
           <button
             type="button"
             onClick={generateOtp}
-            className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            className="w-full rounded-lg bg-gray-500 px-4 py-2 text-white font-semibold shadow-md hover:bg-gray-600 transition disabled:opacity-70"
           >
-            Get OTP
+            Resend OTP
           </button>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={generateOtp}
-              className="bg-gray-500 text-white py-2 rounded hover:bg-gray-600"
-            >
-              Resend OTP
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-            >
-              Sign up
-            </button>
-          </>
-        )}
-      </form>
-    </div>
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white font-semibold shadow-md hover:bg-blue-700 transition disabled:opacity-70"
+          >
+            Sign Up
+          </button>
+        </>
+      )}
+    </form>
+
+    {/* Link */}
+    <p className="text-center text-sm text-gray-600 mt-3">
+      Already have an account?{" "}
+      <a href="/signin" className="text-blue-600 font-medium hover:underline">
+        Sign In
+      </a>
+    </p>
+  </div>
+</div>
+
   );
 }

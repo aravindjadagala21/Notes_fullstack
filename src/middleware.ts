@@ -6,9 +6,9 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   const publicPaths = ["/signin", "/signup", "/api/GenerateOtp"];
 
-  if (token && publicPaths.some(path => req.nextUrl.pathname.includes(path))) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+//   if (token && publicPaths.some(path => req.nextUrl.pathname.includes(path))) {
+//     return NextResponse.redirect(new URL("/", req.url));
+//   }
 
   if (publicPaths.some(path => req.nextUrl.pathname.includes(path))) {
     return NextResponse.next();
