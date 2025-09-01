@@ -13,7 +13,6 @@ export  async function POST(req:NextRequest){
         await connectDB()
         const {email,signin} = await req.json()
         const session = await getSession()
-        console.log(email,signin)
         if(!email){
             return NextResponse.json({
             success:false,
@@ -21,7 +20,6 @@ export  async function POST(req:NextRequest){
             })
         }
         const user = await Users.findOne({email})
-        console.log(user)
 
         if(!user && signin){
              return NextResponse.json({ success: false, msg: "User not exist.." });
@@ -31,19 +29,17 @@ export  async function POST(req:NextRequest){
         }
 
         const otp = generateOtp(6)
-        console.log(otp)
-        console.log(process.env.EMAIL_USER,process.env.EMAIL_PASS)
 
 
- const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465, // or 587 if you want STARTTLS
-  secure: true, // true for 465
-  auth: {
-    user: process.env.EMAIL_USER, // your Gmail
-    pass: process.env.EMAIL_PASS, // App Password
-  },
-});
+        const transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465, 
+          secure: true,
+          auth: {
+            user: process.env.EMAIL_USER, 
+            pass: process.env.EMAIL_PASS, 
+          },
+        });
 
         await transporter.sendMail({
             from: `"Auth System" <${process.env.EMAIL_USER}>`,
@@ -56,11 +52,9 @@ export  async function POST(req:NextRequest){
         session.email = email
         session.otp = otp
         await session.save()
-        console.log('sisson create...',email,otp)
 
         return NextResponse.json({ success: true, msg: "OTP sent successfully" });
         } catch (error: any) {
-        console.error("Error sending OTP:", error);
         return NextResponse.json({ success: false, msg: "Failed to send OTP" }, { status: 500 });
     }
 }

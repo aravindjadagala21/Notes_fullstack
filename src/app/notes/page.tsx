@@ -11,7 +11,7 @@ export default function NotePage() {
   const params = useParams();
   const id = params.id as string | undefined;
 
-  // Local state for content (editable)
+
   const [content, setContent] = useState<string>("");
   const [title,setTitle] = useState<string>("")
   const [err,setErr] = useState("")

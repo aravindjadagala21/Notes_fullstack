@@ -9,14 +9,13 @@ type NoteData = { id: string; title: string; content: string };
 export default function NotePage() {
   const params = useParams();
   const router = useRouter();
-  const id = params?.id; // safer access
+  const id = params?.id; 
 
   const [note, setNote] = useState<NoteData | null>(null);
   const [content, setContent] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  // Fetch note on mount
   useEffect(() => {
     if (!id) {
       setIsLoading(false);
@@ -45,7 +44,7 @@ export default function NotePage() {
     fetchNote();
   }, [id]);
 
-  // Update note
+
   const handleSave = async () => {
     if (!note || !id) return;
 

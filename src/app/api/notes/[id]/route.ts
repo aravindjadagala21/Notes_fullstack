@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import Notes from "@/models/Notes";
 import { getUserIdFromToken } from "@/actions/getidfromtoken";
 
-// Connect to MongoDB
+
 await connectDB();
 
-// GET - Fetch a single note by ID
+
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const { id } = await params; 
   try {
@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-// PUT - Update an existing note by ID
+
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
  const { id } = await params; 
   try {
@@ -49,7 +49,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-// DELETE - Delete a note by ID
+
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
  const { id } = await params; 
   try {

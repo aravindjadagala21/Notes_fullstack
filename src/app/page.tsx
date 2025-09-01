@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 type Note = { _id: string; title: string };
 
 export default function Home() {
@@ -14,7 +15,7 @@ export default function Home() {
     username:"",
     email:""
   })
-
+const router  = useRouter()
   const fetchNotes = async () => {
     try {
       const res = await fetch("/api/notes");
@@ -53,6 +54,8 @@ export default function Home() {
       alert("Failed to delete note");
     }
   };
+
+
 
   if (loading) return <div>Loading notes...</div>;
   if (error) return <div>Failed to load notes.</div>;

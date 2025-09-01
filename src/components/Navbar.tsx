@@ -1,10 +1,26 @@
 "use client"
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Navbar() {
-  const [openProfile, setOpenProfile] = useState(false);
+  const router = useRouter()
+    const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/signout", {
+        method: "POST",
+      });
 
-  const user = { name: "John Doe", dob: "1990-01-01" };
+      const data = await res.json();
+      console.log(data.message);
+
+      if (data.success) {
+        router.push("/signin")
+      }
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+
 
   return (
     <nav className="flex justify-between items-center p-4 ">
@@ -14,18 +30,9 @@ export default function Navbar() {
       </a>
 
       <div className="relative">
-        <button  className="w-[75px] h-[21px] font-[600] text-[14px]">Sign Out</button>
-        {/* <div
-          onClick={() => setOpenProfile(!openProfile)}
-          onMouseEnter={() => setOpenProfile(true)}
-          onMouseLeave={() => setOpenProfile(false)}
-          className="cursor-pointer"
-        >
-          <span className="text-2xl">👤</span>
-        </div> */}
-        {/* {openProfile && (
-          <ProfileCard user={user} />
-        )} */}
+        <button
+        onClick={handleSignOut}
+          className="w-[75px] h-[21px] font-[600] text-[14px] pointer">Sign Out</button>
       </div>
     </nav>
   );

@@ -17,11 +17,11 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [toggle, setToggle] = useState(false);
 
-  // local validation errors
+ 
   const [err, setErr] = useState<{ username?: string; email?: string; dob?: string }>({});
 
   async function generateOtp(e: React.MouseEvent) {
-    e.preventDefault(); // ✅ prevent form submit
+    e.preventDefault();
     let hasError = false;
     const newErr: typeof err = {};
 
@@ -65,23 +65,23 @@ export default function SignupPage() {
   }
 
   return (
-<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-  <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center gap-5 p-5">
-    {/* Logo */}
+<div className="flex min-h-screen items-center justify-center  p-4">
+  <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-md gap-5 p-5">
+    
     <div className="w-[343px] h-[32px] flex justify-center gap-2">
       <img src="/top.png" alt="logo" />
       <h1>HD</h1>
     </div>
 
-    {/* Heading */}
+   
     <div className="flex flex-col justify-around items-center gap-3">
       <h1 className="h-[35px] font-[700] text-[32px] text-[#232323]">Sign Up</h1>
       <p className="text-ash">Signup to enjoy the features of HD</p>
     </div>
 
-    {/* Form */}
+  
     <form action={formAction} className="w-[343px] flex flex-col gap-5">
-      {/* Username */}
+      
       <div className="relative">
         <label
           htmlFor="username"
@@ -102,7 +102,7 @@ export default function SignupPage() {
         {err.username && <p className="text-sm text-red-500">{err.username}</p>}
       </div>
 
-      {/* DOB */}
+    
       <div className="relative">
         <label
           htmlFor="dob"
@@ -122,7 +122,7 @@ export default function SignupPage() {
         {err.dob && <p className="text-sm text-red-500">{err.dob}</p>}
       </div>
 
-      {/* Email */}
+
       <div className="relative">
         <label
           htmlFor="email"
@@ -143,7 +143,7 @@ export default function SignupPage() {
         {err.email && <p className="text-sm text-red-500">{err.email}</p>}
       </div>
 
-      {/* OTP */}
+     
       {toggle && (
         <div className="relative">
           <label
@@ -163,7 +163,7 @@ export default function SignupPage() {
         </div>
       )}
 
-      {/* Buttons */}
+      
       {!toggle ? (
         <button
           type="button"
@@ -191,7 +191,7 @@ export default function SignupPage() {
       )}
     </form>
 
-    {/* Link */}
+   
     <p className="text-center text-sm text-gray-600 mt-3">
       Already have an account?{" "}
       <a href="/signin" className="text-blue-600 font-medium hover:underline">

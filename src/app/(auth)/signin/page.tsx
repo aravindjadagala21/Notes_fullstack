@@ -71,8 +71,8 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-      <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center gap-5 p-5">
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-lg gap-5 p-5">
         <div className="w-[343px] h-[32px] flex justify-center gap-2">
           {/* <img src="/top.png" alt="img" /> */}
           <Img/>
