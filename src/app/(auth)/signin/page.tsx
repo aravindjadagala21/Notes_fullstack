@@ -13,6 +13,7 @@ export default function SignInPage() {
   const [otpsend,setOtpsend] = useState(false)
   const router = useRouter();
   const [resend,setResend] = useState(false)
+  const [desablefor5sec,setDesablefor5sec] = useState(false)
   const handleSendOtp = async () => {
     if (!email.includes("@")) {
       setError("Enter a valid email");
@@ -20,6 +21,7 @@ export default function SignInPage() {
     }
 
     setLoading(true);
+    setDesablefor5sec(true)
     setError("");
     try {
         const res = await fetch("/api/GenerateOtp", {
@@ -30,6 +32,7 @@ export default function SignInPage() {
         const data = await res.json();
         if(data.success){
           setOtpsend(data.success)
+          setResend(data.success)
         }
       if (data?.msg) {
         alert(data.msg);
@@ -38,6 +41,9 @@ export default function SignInPage() {
       setError(`Failed to send OTP : ${err}`);
     } finally {
       setLoading(false);
+      setTimeout(()=>{
+        setDesablefor5sec(false)
+      },5000)
     }
   };
 
@@ -127,9 +133,10 @@ export default function SignInPage() {
               </div>
               <div>
               <button
+              disabled={desablefor5sec}
                 type="button"
                 onClick={handleSendOtp}
-                className=" text-[14px]  font-medium text-blue hover:underline"
+                className=" text-[14px]  font-medium text-blue hover:underline disabled:text-ash"
               >
                {!resend? "send Otp":"Resend OTP"}
               </button>

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
 import signupUser from "@/actions/singupuser";
-// import Image from "next/image";
 import RightColumn from "@/components/right-column";
 import Img from "@/components/image";
 export default function SignupPage() {
@@ -18,7 +17,7 @@ export default function SignupPage() {
   const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
   const [toggle, setToggle] = useState(false);
-
+  const [desablefor5sec,setDesablefor5sec] = useState(false)
  
   const [err, setErr] = useState<{ username?: string; email?: string; dob?: string }>({});
 
@@ -39,7 +38,7 @@ export default function SignupPage() {
       newErr.dob = "Enter date of birth";
       hasError = true;
     }
-
+    setDesablefor5sec(true)
     setErr(newErr);
     if (hasError) return;
 
@@ -56,6 +55,9 @@ export default function SignupPage() {
      }
 
       setToggle(result.success);
+        setTimeout(()=>{
+        setDesablefor5sec(false)
+      },5000)
       setErr({});
     } catch (error) {
       console.error("OTP generation failed:", error);
@@ -174,6 +176,7 @@ export default function SignupPage() {
       
       {!toggle ? (
         <button
+        disabled={desablefor5sec}
           type="button"
           onClick={generateOtp}
           className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white font-semibold shadow-md hover:bg-blue-700 transition disabled:opacity-70"
@@ -183,9 +186,10 @@ export default function SignupPage() {
       ) : (
         <>
           <button
+          disabled={desablefor5sec}
             type="button"
             onClick={generateOtp}
-           className=" text-[14px] self-start  font-medium text-blue hover:underline"
+           className=" text-[14px] self-start  font-medium text-blue hover:underline disabled:text-ash"
           >
             Resend OTP
           </button>
