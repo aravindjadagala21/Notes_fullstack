@@ -52,7 +52,7 @@ export default function SignInPage() {
       formdata.set("email", email);
       formdata.set("otp", otp);
       formdata.set("keepmeloggedin",keepmeloggedin.toString()) 
-      const res = await fetch("http://localhost:3000/api/signin", {
+      const res = await fetch("/api/signin", {
         method: "POST",
         body: formdata,
       });
