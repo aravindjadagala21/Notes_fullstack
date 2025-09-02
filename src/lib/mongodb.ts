@@ -1,7 +1,7 @@
 import mongoose, { Mongoose } from "mongoose";
 
 const M_URL = process.env.MONGODB_URI as string;
-console.log(M_URL)
+
 
 if (!M_URL) {
   throw new Error("Please define the MongoDB URL in MONGODB_URI");

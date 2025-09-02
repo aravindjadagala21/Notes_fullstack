@@ -21,7 +21,7 @@ export default function SignInPage() {
     setLoading(true);
     setError("");
     try {
-        const res = await fetch("http://localhost:3000/api/GenerateOtp", {
+        const res = await fetch("/api/GenerateOtp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email,signin:true }),
