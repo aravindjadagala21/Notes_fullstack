@@ -1,13 +1,13 @@
 import mongoose, { Mongoose } from "mongoose";
 
-const M_URL = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/notes-app";
+const M_URL = process.env.MONGODB_URI as string;
+console.log(M_URL)
 
 if (!M_URL) {
   throw new Error("Please define the MongoDB URL in MONGODB_URI");
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var mongoose: {
     conn: Mongoose | null;
     promise: Promise<Mongoose> | null;
@@ -27,7 +27,9 @@ async function connectDB(): Promise<Mongoose> {
   }
   try {
     cached!.conn = await cached!.promise;
+    console.log("connected...")
   } catch (err) {
+    console.log("not connected...")
     cached!.promise = null;
     throw err;
   }

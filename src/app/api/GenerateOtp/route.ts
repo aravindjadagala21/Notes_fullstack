@@ -11,6 +11,7 @@ function generateOtp(length = 6) {
 export  async function POST(req:NextRequest){
     try{
         await connectDB()
+        console.log("db is connected...")
         const {email,signin} = await req.json()
         const session = await getSession()
         if(!email){
