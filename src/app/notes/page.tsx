@@ -33,31 +33,52 @@ export default function NotePage() {
   }
 
   return (
-    <>
-      <Navbar />
-      <div className="p-6">
-        <div className="flex justify-between">
-            <div>
-            <input type="text" 
-            onChange={e=>setTitle(e.target.value)}
+<>
+ 
+  <div className="flex h-screen items-center justify-center p-4 bg-gray-100">
+   
+    <div className="w-[375px] h-full pt-[34px] bg-white flex flex-col justify-start items-center shadow-lg gap-5 p-5">
+        <Navbar />
+      <div className="w-full flex justify-between items-center gap-2">
+        <div className="flex-1">
+          <input 
+            type="text" 
+            onChange={e => setTitle(e.target.value)}
             value={title}
-            className="text-2xl font-bold mb-4" placeholder="Title" required/>
-            {err && <p className="text-sm p-1 text-orange-500">{err}</p>}
-            </div>
-            <button 
-            onClick={handleSave}
-            className="text-2xl font-bold mb-4 border border-amber-200 p-1 px-3 rounded">save</button>
+            placeholder="Title" 
+            required
+            className="w-full text-2xl font-bold mb-2 p-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          
         </div>
         
+        <button 
+          onClick={handleSave}
+          className="text-lg font-semibold mb-2 border border-amber-200 p-2 rounded hover:bg-amber-50 transition"
+        >
+          Save
+        </button>
         
-
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full border rounded p-4 bg-gray-50 min-h-[150px] resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Write or edit your note here..."
-        />
       </div>
-    </>
+{err && <p className="text-sm self-start  text-orange-500">{err}</p>}
+      {/* Textarea */}
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Write or edit your note here..."
+        className="w-full border rounded block
+        scroll-none 
+        h-min-[200px]
+        h-[400px]
+        max-h-full
+         p-4 bg-gray-50 
+         resize-none focus:outline-none 
+         focus:ring-2 focus:ring-blue-400"
+      />
+      
+    </div>
+  </div>
+</>
+
   );
 }

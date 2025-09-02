@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import RightColumn from "@/components/right-column";
 import Img from "@/components/image";
 export default function SignInPage() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ export default function SignInPage() {
   const [keepmeloggedin,setKeepmeloggedin] = useState(false)
   const [otpsend,setOtpsend] = useState(false)
   const router = useRouter();
-
+  const [resend,setResend] = useState(false)
   const handleSendOtp = async () => {
     if (!email.includes("@")) {
       setError("Enter a valid email");
@@ -71,10 +72,19 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-lg gap-5 p-5">
+    <div className="flex h-screen items-center 
+    gap-3
+    justify-center p-4">
+
+      <div className="h-full lg:rounded-2xl flex items-center
+      gap-3
+       justify-center lg:border  lg:p-4">
+
+
+      <div className="w-[375px] h-full 
+      pt-[34px] bg-white flex flex-col justify-center items-center shadow-lg gap-5 p-5">
         <div className="w-[343px] h-[32px] flex justify-center gap-2">
-          <Img/>
+           <Img/>
           <h1>HD</h1>
         </div>
         <div className="flex flex-col justify-around  items-center gap-3">
@@ -121,13 +131,14 @@ export default function SignInPage() {
                 onClick={handleSendOtp}
                 className=" text-[14px]  font-medium text-blue hover:underline"
               >
-                Resend OTP
+               {!resend? "send Otp":"Resend OTP"}
               </button>
               </div>
               <div>
               <label htmlFor="checkpoint">
                 <input type="checkbox"
                 name="keepmeloggedin"
+                id="checkpoint"
                 onChange={(e)=>setKeepmeloggedin(e.target.checked)}
                  className="mr-1  inline-block" /> 
                 keep me logged in
@@ -165,6 +176,10 @@ export default function SignInPage() {
         </p>
       </div>
       </div>
+
+      <RightColumn/>
+
+    </div>
     </div>
   );
 }

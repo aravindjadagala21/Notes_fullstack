@@ -3,7 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useActionState, useState } from "react";
 import signupUser from "@/actions/singupuser";
-import Image from "next/image";
+// import Image from "next/image";
+import RightColumn from "@/components/right-column";
+import Img from "@/components/image";
 export default function SignupPage() {
   const [state, formAction] = useActionState(signupUser, {
     success: false,
@@ -65,11 +67,17 @@ export default function SignupPage() {
   }
 
   return (
-<div className="flex min-h-screen items-center justify-center  p-4">
-  <div className="w-[375px] pt-[34px] bg-white flex flex-col justify-center items-center shadow-md gap-5 p-5">
+<div className="flex h-screen items-center justify-center  p-4">
+
+
+  <div className="h-full lg:rounded-2xl flex items-center
+      gap-3
+       justify-center lg:border  lg:p-4">
+  <div className="w-[375px] h-full pt-[34px]
+   bg-white flex flex-col justify-center items-center shadow-md gap-5 p-5">
     
     <div className="w-[343px] h-[32px] flex justify-center gap-2">
-      <Image src="/top.png" alt="err" width={100} height={50} />
+      <Img/>
       <h1>HD</h1>
     </div>
 
@@ -177,7 +185,7 @@ export default function SignupPage() {
           <button
             type="button"
             onClick={generateOtp}
-            className="w-full rounded-lg bg-gray-500 px-4 py-2 text-white font-semibold shadow-md hover:bg-gray-600 transition disabled:opacity-70"
+           className=" text-[14px] self-start  font-medium text-blue hover:underline"
           >
             Resend OTP
           </button>
@@ -199,6 +207,10 @@ export default function SignupPage() {
       </a>
     </p>
   </div>
+  <RightColumn/>
+  </div>
+
+
 </div>
 
   );

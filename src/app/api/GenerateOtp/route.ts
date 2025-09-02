@@ -30,8 +30,7 @@ export  async function POST(req:NextRequest){
         }
 
         const otp = generateOtp(6)
-
-
+console.log(otp)
         const transporter = nodemailer.createTransport({
           host: "smtp.gmail.com",
           port: 465, 

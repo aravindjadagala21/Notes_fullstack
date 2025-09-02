@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import Img from "./image";
 import Link from "next/link";
 export default function Navbar() {
   const router = useRouter()
@@ -27,7 +27,7 @@ export default function Navbar() {
     <nav className="flex justify-between items-center p-4 ">
       <Link href="/" className="flex items-center gap-2">
         <span className="w-[47px] h-[32px]">
-          <Image src="/logo.png" alt="Logo" width={100} height={100} />
+          <Img/>
           </span>
         <span className="w-[129px] h-[22px]">Dashboard</span>
       </Link>

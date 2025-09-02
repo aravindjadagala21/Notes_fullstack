@@ -20,7 +20,6 @@ export default function Home() {
       if (!res.ok) throw new Error("Failed to fetch notes");
       const data = await res.json();
       setNotes(data.data);
-      console.log(data)
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -60,8 +59,12 @@ export default function Home() {
 
   return (
     <>
-    <div className="w-full h-screen flex justify-center items-center ">
-    <div className="w-[357px] sm:w-[400px] sm:h-[500px] pt-[32px] border rounded-2xl  flex flex-col justify-start items-center gap-3">
+    <div className="w-full h-screen p-2 flex justify-center items-center ">
+    <div className="w-[357px] h-full sm:w-[400px] 
+    shadow-2xl
+    sm:border
+    sm:h-[500px] pt-[32px]  rounded-2xl 
+     flex flex-col justify-start items-center gap-3">
       <Navbar />
       <div className=" flex flex-col gap-6">
         <div 

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
-  const publicPaths = ["/signin", "/signup", "/api/GenerateOtp"];
+  const publicPaths = ["/signin", "/signup", "/api/GenerateOtp","/images"];
 
 //   if (token && publicPaths.some(path => req.nextUrl.pathname.includes(path))) {
 //     return NextResponse.redirect(new URL("/", req.url));
